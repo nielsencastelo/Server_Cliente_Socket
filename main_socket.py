@@ -24,7 +24,7 @@ def server(host = 'localhost', port=46864):
         
         client.setblocking(0)
         
-        #data = client.recv(data_payload)
+       
         
         print('Cliente Conectado!')
         while True:
@@ -36,43 +36,18 @@ def server(host = 'localhost', port=46864):
             except:
                 print('Cliente desconectado')
                 break
-        
-        '''
-        if data == str.encode( ID_SENSOR + '_REQUEST'):
-           
-           print(data) 
-           #client.close()
             
-        elif data == str.encode(ID_SENSOR + '_RESET'):
-           
-            client.send(str.encode(ID_SENSOR + '_RST_OK'))
-            #client.close()
-            
-        elif  (ID_SENSOR +  '_SET') in data.decode("utf-8"):
-           
-            
-            string_data = data.decode("utf-8").replace( ID_SENSOR + '_SET', '')
-            
-            
-            string_data = ID_SENSOR + '_NEW_COUNT_' + string_data
-            my_str_as_bytes = str.encode(string_data)
-            client.send(my_str_as_bytes)
-        
-            
-        elif data == b'CLOSE':
-            client.send(b'Close server')
-            client.close()
-            sock.close()
-            break
-        else:
-            string_data = data.decode("utf-8")
-            string_data = 'Invalid Message:' + string_data
-            print(string_data)
-            
-            my_str_as_bytes = str.encode(string_data)
-            
-            client.send(my_str_as_bytes)
-            #client.close()
-        '''
+            try:
+                 data = client.recv(data_payload)
+                 
+                 if ('SET') in data.decode("utf-8"):
+                     string_data = data.decode("utf-8")
+                     string_data = string_data + ' modificando mensagem'
+                     my_str_as_bytes = str.encode(string_data)
+                     client.send(my_str_as_bytes)
+            except:
+                print()
+                
+      
 
 server()
