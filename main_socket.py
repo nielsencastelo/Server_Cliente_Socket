@@ -40,9 +40,10 @@ def server(host = 'localhost', port=46864):
             try:
                  data = client.recv(data_payload)
                  
-                 if ('SET') in data.decode("utf-8"):
+                 if ('RESET') in data.decode("utf-8"):
                      string_data = data.decode("utf-8")
                      string_data = string_data + ' modificando mensagem'
+                     i = 0
                      my_str_as_bytes = str.encode(string_data)
                      client.send(my_str_as_bytes)
             except:
